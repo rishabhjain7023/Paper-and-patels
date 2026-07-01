@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sakshi — Wedding Stationery Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Italiana&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F8F5F1;
+    --beige:#E8DDD1;
+    --sage:#AEB8A2;
+    --gold:#C9A46A;
+    --charcoal:#2F2F2F;
+    --ivory-rgb: 248,245,241;
+    --radius: 14px;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ivory);
+    color:var(--charcoal);
+    font-family:'Inter',sans-serif;
+    font-weight:300;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500;color:var(--charcoal);}
+  .eyebrow{
+    font-family:'Italiana',serif;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--gold);
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  section{position:relative;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease), transform .9s var(--ease);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:26px 0;
+    transition:background .5s var(--ease), padding .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  header.scrolled{
+    background:rgba(var(--ivory-rgb),0.92);
+    backdrop-filter:blur(10px);
+    padding:16px 0;
+    box-shadow:0 1px 0 rgba(47,47,47,0.08);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;}
+  .logo{
+    font-family:'Italiana',serif;
+    font-size:22px;
+    letter-spacing:0.14em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);}
+  .nav-links{display:flex;gap:40px;align-items:center;}
+  .nav-links a{
+    font-size:13px;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--charcoal); opacity:.75;
+    position:relative;
+    padding-bottom:4px;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);
+    transition:width .35s var(--ease);
+  }
+  .nav-links a:hover{opacity:1;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    border:1px solid var(--charcoal);
+    padding:9px 22px;
+    border-radius:100px;
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .nav-toggle{display:none;}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 34px;
+    border-radius:100px;
+    font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    transition:all .4s var(--ease);
+    cursor:pointer;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--charcoal);color:var(--ivory);}
+  .btn-primary:hover{background:var(--gold);transform:translateY(-2px);}
+  .btn-outline{border-color:var(--charcoal);color:var(--charcoal);}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+  .btn-light{border-color:rgba(248,245,241,.5);color:var(--ivory);}
+  .btn-light:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:150px 24px 90px;
+    position:relative;
+    background:
+      radial-gradient(ellipse at 18% 12%, rgba(174,184,162,0.20), transparent 55%),
+      radial-gradient(ellipse at 85% 88%, rgba(201,164,106,0.14), transparent 50%),
+      var(--ivory);
+  }
+  .invite-card{
+    max-width:760px;
+    text-align:center;
+    padding:76px 56px;
+    position:relative;
+    border:1px solid rgba(201,164,106,0.55);
+  }
+  .invite-card::before,.invite-card::after{
+    content:'';position:absolute;width:34px;height:34px;
+    border:1px solid var(--gold);
+  }
+  .invite-card::before{top:-10px;left:-10px;border-right:none;border-bottom:none;}
+  .invite-card::after{bottom:-10px;right:-10px;border-left:none;border-top:none;}
+  .invite-card .corner-tr,.invite-card .corner-bl{position:absolute;width:34px;height:34px;border:1px solid var(--gold);}
+  .invite-card .corner-tr{top:-10px;right:-10px;border-left:none;border-bottom:none;}
+  .invite-card .corner-bl{bottom:-10px;left:-10px;border-right:none;border-top:none;}
+  .hero .eyebrow{display:block;margin-bottom:22px;}
+  .hero h1{
+    font-size:clamp(32px,5vw,54px);
+    line-height:1.22;
+    font-weight:500;
+    max-width:640px;
+    margin:0 auto 26px;
+  }
+  .hero p.sub{
+    font-family:'Cormorant Garamond',serif;
+    font-size:20px;
+    color:#5a5a5a;
+    max-width:480px;
+    margin:0 auto 40px;
+    font-style:italic;
+  }
+  .hero-buttons{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+  .hero-scroll{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    font-family:'Italiana',serif;letter-spacing:.2em;font-size:11px;color:var(--charcoal);opacity:.55;
+  }
+  .hero-scroll .line{width:1px;height:38px;background:linear-gradient(var(--gold),transparent);}
+
+  /* ---------- section heading ---------- */
+  .section-head{text-align:center;max-width:600px;margin:0 auto 64px;}
+  .section-head .eyebrow{display:block;margin-bottom:16px;}
+  .section-head h2{font-size:clamp(28px,3.6vw,40px);margin-bottom:18px;}
+  .section-head p{color:#6a6a6a;font-size:16px;}
+  .divider-mark{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto 20px;}
+  .divider-mark .l,.divider-mark .r{width:44px;height:1px;background:rgba(47,47,47,0.2);}
+  .divider-mark svg{width:20px;height:20px;color:var(--gold);}
+
+  /* ---------- about ---------- */
+  .about{padding:140px 0;background:var(--beige);}
+  .about .grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:80px;align-items:center;}
+  .about-visual{
+    aspect-ratio:4/5;
+    border-radius:var(--radius);
+    background:
+      linear-gradient(160deg, rgba(255,255,255,0.5), transparent 40%),
+      linear-gradient(135deg, #d8cabb, #b9c2ac 70%);
+    position:relative;
+    overflow:hidden;
+  }
+  .about-visual::after{
+    content:'S';
+    font-family:'Italiana',serif;
+    font-size:180px;
+    color:rgba(248,245,241,0.5);
+    position:absolute;bottom:-40px;right:-10px;
+  }
+  .about-text .eyebrow{display:block;margin-bottom:18px;}
+  .about-text h2{font-size:clamp(28px,3.6vw,38px);margin-bottom:24px;}
+  .about-text p{color:#4a4a4a;font-size:16px;margin-bottom:18px;max-width:520px;}
+  .about-sign{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;font-size:26px;
+    margin-top:28px;color:var(--charcoal);
+  }
+
+  /* ---------- services ---------- */
+  .services{padding:140px 0;}
+  .service-list{border-top:1px solid rgba(47,47,47,0.14);}
+  .service-row{
+    display:grid;grid-template-columns:120px 1fr 1.1fr;gap:40px;align-items:center;
+    padding:36px 0;border-bottom:1px solid rgba(47,47,47,0.14);
+    transition:background .4s var(--ease);
+  }
+  .service-row:hover{background:rgba(201,164,106,0.06);}
+  .service-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--gold);}
+  .service-row h3{font-size:23px;font-weight:500;}
+  .service-row p{color:#666;font-size:15px;max-width:420px;}
+
+  /* ---------- portfolio ---------- */
+  .portfolio{padding:140px 0;background:var(--charcoal);color:var(--ivory);}
+  .portfolio .section-head h2{color:var(--ivory);}
+  .portfolio .section-head p{color:rgba(248,245,241,0.6);}
+  .portfolio .eyebrow{color:var(--gold);}
+  .port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .port-card{
+    position:relative;border-radius:var(--radius);overflow:hidden;
+    aspect-ratio:3/4;
+    border:1px solid rgba(201,164,106,0.25);
+  }
+  .port-card:nth-child(2){aspect-ratio:3/4;transform:translateY(30px);}
+  .port-card .tile{
+    position:absolute;inset:0;
+    display:flex;align-items:flex-end;padding:26px;
+  }
+  .port-card .tile::before{content:'';position:absolute;inset:0;opacity:0.9;}
+  .port-card:nth-child(1) .tile::before{background:linear-gradient(150deg,#3a3a35,#5c6152 75%);}
+  .port-card:nth-child(2) .tile::before{background:linear-gradient(150deg,#4a4238,#6c5a3f 75%);}
+  .port-card:nth-child(3) .tile::before{background:linear-gradient(150deg,#38403a,#818a72 75%);}
+  .port-card:nth-child(4) .tile::before{background:linear-gradient(150deg,#413a33,#c9a46a 130%);}
+  .port-card:nth-child(5) .tile::before{background:linear-gradient(150deg,#35332f,#8f9280 75%);}
+  .port-card:nth-child(6) .tile::before{background:linear-gradient(150deg,#3d372e,#a58a5c 75%);}
+  .port-card .info{position:relative;z-index:1;}
+  .port-card .info .eyebrow{color:var(--gold);margin-bottom:8px;display:block;}
+  .port-card .info h3{color:var(--ivory);font-size:21px;}
+  .port-card:hover .tile::before{opacity:1;}
+  .port-card{transition:transform .5s var(--ease);}
+  .port-card:hover{transform:translateY(-6px);}
+  .port-note{
+    text-align:center;color:rgba(248,245,241,0.45);font-size:13px;margin-top:36px;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+  }
+
+  /* ---------- why choose ---------- */
+  .why{padding:140px 0;}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(47,47,47,0.14);border:1px solid rgba(47,47,47,0.14);}
+  .why-item{background:var(--ivory);padding:44px 36px;}
+  .why-item svg{width:26px;height:26px;color:var(--gold);margin-bottom:20px;}
+  .why-item h3{font-size:18px;font-weight:500;margin-bottom:10px;}
+  .why-item p{font-size:14px;color:#777;}
+
+  /* ---------- testimonials ---------- */
+  .testimonials{padding:140px 0;background:var(--beige);}
+  .quote-wrap{max-width:760px;margin:0 auto;text-align:center;}
+  .quote-mark{font-family:'Playfair Display',serif;font-size:80px;color:var(--gold);line-height:0;display:block;margin-bottom:10px;}
+  blockquote{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(22px,2.6vw,30px);
+    font-style:italic;
+    color:var(--charcoal);
+    margin-bottom:26px;
+  }
+  .quote-attr{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#777;}
+  .quote-attr span{color:var(--gold);}
+
+  /* ---------- contact ---------- */
+  .contact{padding:150px 0;text-align:center;position:relative;overflow:hidden;}
+  .contact::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 30%, rgba(201,164,106,0.14), transparent 60%);
+  }
+  .contact h2{font-size:clamp(30px,4.2vw,46px);max-width:640px;margin:0 auto 22px;position:relative;}
+  .contact p{max-width:480px;margin:0 auto 40px;color:#666;position:relative;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--charcoal);color:var(--ivory);padding:80px 0 34px;}
+  .footer-quote{
+    text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:clamp(20px,2.6vw,28px);
+    max-width:560px;margin:0 auto 56px;color:var(--ivory);
+  }
+  .footer-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:30px;border-top:1px solid rgba(248,245,241,0.12);
+    font-size:12px;color:rgba(248,245,241,0.5);
+    flex-wrap:wrap;gap:16px;
+  }
+  .footer-links{display:flex;gap:26px;}
+  .footer-links a{opacity:.75;letter-spacing:.05em;text-transform:uppercase;font-size:12px;}
+  .footer-links a:hover{color:var(--gold);opacity:1;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .about .grid{grid-template-columns:1fr;gap:50px;}
+    .port-grid{grid-template-columns:repeat(2,1fr);}
+    .port-card:nth-child(2){transform:none;}
+    .why-grid{grid-template-columns:1fr;}
+    .service-row{grid-template-columns:1fr;gap:8px;}
+  }
+  @media (max-width:680px){
+    .nav-links{display:none;}
+    .invite-card{padding:52px 26px;}
+    .port-grid{grid-template-columns:1fr;}
+    .footer-bottom{flex-direction:column;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#home" class="logo">Sakshi<span class="dot"></span>Studio</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#testimonials">Kind Words</a>
+        <a href="#contact" class="nav-cta">Start a Project</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="invite-card reveal">
+    <span class="corner-tr"></span><span class="corner-bl"></span>
+    <span class="eyebrow">Wedding Stationery Studio</span>
+    <h1>Designing Wedding Stationery That Becomes Part of Your Love Story</h1>
+    <p class="sub">Elegant menus, seating charts, welcome signs, invitations, and wedding details crafted with timeless aesthetics and thoughtful design.</p>
+    <div class="hero-buttons">
+      <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
+      <a href="#contact" class="btn btn-outline">Let's Work Together</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span class="line"></span>SCROLL</div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap grid">
+    <div class="about-visual reveal"></div>
+    <div class="about-text reveal">
+      <span class="eyebrow">About the Studio</span>
+      <h2>Hello, I'm Sakshi.</h2>
+      <p>I'm a wedding stationery designer who believes that every wedding detail should feel as meaningful as the celebration itself. From elegant menus and seating plans to welcome signs and custom stationery, I create designs that combine timeless beauty with modern sophistication.</p>
+      <p>Every piece is thoughtfully crafted to complement your wedding story while remaining unique, memorable, and print-ready.</p>
+      <p class="about-sign">— Sakshi</p>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">What I Create</span>
+      <h2>Services</h2>
+      <p>A full suite of stationery, designed to feel like one cohesive story from the invitation to the last table number.</p>
+    </div>
+    <div class="service-list">
+      <div class="service-row reveal">
+        <span class="service-num">No. 01</span>
+        <h3>Wedding Menus</h3>
+        <p>Beautifully designed menus for receptions, cocktail hours, and special events.</p>
+      </div>
+      <div class="service-row reveal">
+        <span class="service-num">No. 02</span>
+        <h3>Seating Plans</h3>
+        <p>Elegant seating charts that guide guests while enhancing your wedding décor.</p>
+      </div>
+      <div class="service-row reveal">
+        <span class="service-num">No. 03</span>
+        <h3>Welcome Signs</h3>
+        <p>Custom welcome boards designed to create a memorable first impression.</p>
+      </div>
+      <div class="service-row reveal">
+        <span class="service-num">No. 04</span>
+        <h3>Invitations</h3>
+        <p>Classic, modern, editorial, and bespoke invitation suites.</p>
+      </div>
+      <div class="service-row reveal">
+        <span class="service-num">No. 05</span>
+        <h3>Day-of Stationery</h3>
+        <p>Table numbers, place cards, programs, bar menus, and coordinated wedding signage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="portfolio" id="portfolio">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Selected Work</span>
+      <h2>Featured Wedding Collections</h2>
+      <p>A curated selection of thoughtfully designed wedding stationery created with elegance, attention to detail, and timeless aesthetics.</p>
+    </div>
+    <div class="port-grid">
+      <div class="port-card reveal"><div class="tile"><div class="info"><span class="eyebrow">Ivory Suite</span><h3>The Amara Collection</h3></div></div></div>
+      <div class="port-card reveal"><div class="tile"><div class="info"><span class="eyebrow">Gold Foil Series</span><h3>The Meera Suite</h3></div></div></div>
+      <div class="port-card reveal"><div class="tile"><div class="info"><span class="eyebrow">Sage &amp; Linen</span><h3>The Rohini Collection</h3></div></div></div>
+      <div class="port-card reveal"><div class="tile"><div class="info"><span class="eyebrow">Editorial Suite</span><h3>The Vihaan Edition</h3></div></div></div>
+      <div class="port-card reveal"><div class="tile"><div class="info"><span class="eyebrow">Classic Monogram</span><h3>The Ananya Suite</h3></div></div></div>
+      <div class="port-card reveal"><div class="tile"><div class="info"><span class="eyebrow">Champagne Series</span><h3>The Kabir Collection</h3></div></div></div>
+    </div>
+    <p class="port-note">Full case studies, print files, and details available on request.</p>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Studio Difference</span>
+      <h2>Why Choose Me?</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2 L14.5 9 L22 12 L14.5 15 L12 22 L9.5 15 L2 12 L9.5 9 Z"/></svg>
+        <h3>Fully Custom Designs</h3>
+        <p>Every suite is built from scratch around your palette, venue, and story.</p>
+      </div>
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18M8 4v5"/></svg>
+        <h3>High-Resolution Print Files</h3>
+        <p>Delivered print-ready, with your printer's specifications in mind.</p>
+      </div>
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <h3>Attention to Every Detail</h3>
+        <p>From kerning to card stock, nothing is left to chance.</p>
+      </div>
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3c4 3 7 5 7 9a7 7 0 1 1-14 0c0-4 3-6 7-9Z"/></svg>
+        <h3>Unlimited Creativity</h3>
+        <p>No two suites look alike — your stationery stays entirely yours.</p>
+      </div>
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 12h16M4 6h10M4 18h13"/></svg>
+        <h3>Modern &amp; Timeless Style</h3>
+        <p>Editorial sensibility that won't feel dated in your wedding photos.</p>
+      </div>
+      <div class="why-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.3 8.6 8.6 0 0 1-3.5-.7L3 20l1-4.8A8.4 8.4 0 1 1 21 11.5Z"/></svg>
+        <h3>Quick Communication</h3>
+        <p>Clear timelines and prompt replies from first sketch to final proof.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Kind Words</span>
+      <h2>From Couples I've Worked With</h2>
+    </div>
+    <div class="quote-wrap reveal">
+      <span class="quote-mark">"</span>
+      <blockquote>The design was exactly what we envisioned — elegant, sophisticated, and beautifully crafted. Every detail exceeded our expectations.</blockquote>
+      <p class="quote-attr">Priya &amp; Arjun <span>— Udaipur Wedding</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow reveal">Get in Touch</span>
+    <h2 class="reveal">Let's Create Something Beautiful Together</h2>
+    <p class="reveal">Whether you're planning an intimate celebration or a grand wedding, I'd love to help bring your vision to life with bespoke stationery designed just for you.</p>
+    <a href="mailto:hello@sakshistudio.com" class="btn btn-primary reveal">Start Your Project</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="footer-quote">"Every detail tells a story. Let's make yours unforgettable."</p>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Sakshi Studio. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // header background on scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
