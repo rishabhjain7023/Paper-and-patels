@@ -688,6 +688,72 @@
       color: #666;
       position: relative;
     }
+        .contact-details {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      margin: 40px auto 0;
+      max-width: 600px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+    }
+
+    .contact-link {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--charcoal);
+      position: relative;
+      transition: color 0.3s var(--ease);
+    }
+
+    .contact-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.35s var(--ease);
+    }
+
+    .contact-link:hover {
+      color: var(--gold);
+    }
+
+    .contact-link:hover::after {
+      width: 100%;
+    }
+
+    .contact-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(47, 47, 47, 0.15);
+    }
+
+    @media (max-width: 600px) {
+      .contact-details {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .contact-divider {
+        display: none;
+      }
+    }
+
 
     /* ---------- footer ---------- */
     footer {
@@ -1125,9 +1191,22 @@
       <h2 class="reveal">Let's Create Something Beautiful Together</h2>
       <p class="reveal">Whether you're planning an intimate celebration or a grand wedding, I'd love to help bring your
         vision to life with bespoke stationery designed just for you.</p>
-      <a href="mailto:hello@sakshistudio.com" class="btn btn-primary reveal">Start Your Project</a>
+      <a href="mailto:sakshi180706@gmail.com" class="btn btn-primary reveal">Start Your Project</a>
+
+      <div class="contact-details reveal">
+        <div class="contact-item">
+          <span class="contact-label eyebrow">Email</span>
+          <a href="mailto:sakshi180706@gmail.com" class="contact-link">sakshi180706@gmail.com</a>
+        </div>
+        <div class="contact-divider"></div>
+        <div class="contact-item">
+          <span class="contact-label eyebrow">Phone</span>
+          <a href="tel:+919145840613" class="contact-link">+91 91458 40613</a>
+        </div>
+      </div>
     </div>
   </section>
+
 
   <footer>
     <div class="wrap">
